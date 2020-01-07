@@ -53,7 +53,10 @@ class _HomePageState extends State<HomePage> {
           title: Text(this.title),
         ),
         body:
-            SafeArea(top: false, bottom: false, child: ServerForm(scaffoldKey)),
+            SafeArea(top: false, bottom: false, child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: ServerForm(scaffoldKey),
+            )),
       ),
     );
   }

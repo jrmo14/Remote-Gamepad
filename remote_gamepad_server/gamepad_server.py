@@ -37,7 +37,7 @@ class GamepadServicer(gamepad_pb2_grpc.GamepadServicer):
         client_id = request.client_id
         self.gamepads[client_id].destroy()
         try:
-            del self.gamepad[client_id]
+            del self.gamepads[client_id]
             print(f"Deleted gamepad {client_id}")
         except KeyError:
             print(f"No gamepad exists with id {client_id}")
