@@ -5,10 +5,9 @@ Read the instructions in the [remote_gamepad_client](remote_gamepad_client) and 
 
 
 ### TODO
-Handle inputs:
-
-- [ ] BTN_SELECT
-- [ ] BTN_MODE
-- [ ] BTN_START
-- [ ] BTN_TL
-- [ ] BTN_TR
+- [ ] Handle BTN_SELECT
+- [ ] Handle BTN_MODE
+- [ ] Handle BTN_START
+- [ ] Handle BTN_TL
+- [ ] Handle BTN_TR
+- [ ] Button click feedback
