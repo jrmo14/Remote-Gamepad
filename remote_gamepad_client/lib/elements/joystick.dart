@@ -2,6 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:remote_joystick/debug_border.dart';
 
 import 'circle.dart';
 
@@ -35,7 +36,10 @@ class Joystick extends StatelessWidget {
     Offset lastPos = Offset(realRadius / 2, realRadius / 2);
     Offset innerPos =
         _calculateInnerPos(lastPos, innerRadius, diameter, Offset(0, 0));
-
+    debugPrint("[WIDGET INFO] real radius is $realRadius");
+    debugPrint("[WIDGET INFO] innerRadius is $innerRadius");
+    debugPrint(
+        "[WIDGET INFO] joystick range should be 0 - ${realRadius - innerRadius}");
     return Center(child: StatefulBuilder(builder: (context, setState) {
       Widget joystick = Stack(
         children: <Widget>[
@@ -62,7 +66,7 @@ class Joystick extends StatelessWidget {
         onPanUpdate: (details) {
           innerPos = _calculateInnerPos(
               lastPos, innerRadius, diameter, details.localPosition);
-          _doCallback(diameter, innerPos);
+          _doCallback(realRadius - innerRadius, innerPos);
           setState(() => lastPos = details.localPosition);
         },
         child: (opacity != null)
@@ -72,9 +76,11 @@ class Joystick extends StatelessWidget {
     }));
   }
 
-  void _doCallback(double radius, Offset offset) {
+  void _doCallback(double joystickDiameter, Offset offset) {
     if (joystickCallback != null) {
-      joystickCallback(offset.dx, offset.dy);
+      Offset remapped = Offset(map(offset.dx, 0, joystickDiameter, -1, 1),
+          map(offset.dy, 0, joystickDiameter, -1, 1));
+      joystickCallback(remapped.dx, remapped.dy);
     }
   }
 
@@ -118,5 +124,10 @@ class Joystick extends StatelessWidget {
     }
 
     return Offset(xPosition, yPosition);
+  }
+
+  double map(
+      double x, double inLow, double inMax, double toLow, double toHigh) {
+    return (x - inLow) * (toHigh - toLow) / (inMax - inLow) + toLow;
   }
 }

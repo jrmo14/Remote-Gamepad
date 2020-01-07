@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:remote_joystick/debug_border.dart';
 
-import 'joystick.dart';
 import 'button.dart';
+import 'joystick.dart';
 
 typedef GamepadCallback = Function(
-    Offset leftStick, Offset rightStick, List<bool> buttonStates);
+    Offset leftStick, Offset rightStick, List<bool> buttonState);
 
 class Gamepad extends StatefulWidget {
   final buttonDiameter;
@@ -15,8 +14,8 @@ class Gamepad extends StatefulWidget {
 
   const Gamepad(
       {Key key,
-      this.buttonDiameter,
-      this.joystickDiameter,
+      this.buttonDiameter = 75.0,
+      this.joystickDiameter = 150.0,
       this.gamepadCallback})
       : super(key: key);
 
@@ -38,9 +37,15 @@ class _GamepadState extends State<Gamepad> {
   var _buttonStates = new List<bool>(4);
 
   _GamepadState(
-      {this.gamepadCallback,
-      this.buttonDiameter = 60.0,
-      this.joystickDiameter = 150.0});
+      {this.gamepadCallback, this.buttonDiameter, this.joystickDiameter}) {
+    _leftStick = Offset(0, 0);
+    _rightStick = Offset(0, 0);
+    for (int i = 0; i < _buttonStates.length; i++) {
+      _buttonStates[i] = false;
+    }
+    debugPrint("BUTTON STATES: $_buttonStates");
+    debugPrint("BUTTON DIAMETER: $buttonDiameter");
+  }
 
   @override
   Widget build(BuildContext context) {

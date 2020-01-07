@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
 import 'package:remote_joystick/controller_route.dart';
+import 'package:remote_joystick/server_form.dart';
 
 void main() => runApp(RemoteControlApp());
 
@@ -9,7 +9,7 @@ class RemoteControlApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    print("Building App main page state");
+    debugPrint("Building App main page state");
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
@@ -34,10 +34,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   String title;
+  GlobalKey<ScaffoldState> scaffoldKey = new GlobalKey<ScaffoldState>();
 
   _HomePageState({this.title}) : super() {
-    print("Creating state");
-    print("Title is $title");
+    debugPrint("Creating state");
+    debugPrint("Title is $title");
     if (this.title == null) {
       this.title = "";
     }
@@ -47,21 +48,13 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
+        key: scaffoldKey,
         appBar: AppBar(
           title: Text(this.title),
         ),
-        body: Center(
-          child: RaisedButton(
-            child: Text("Open controller"),
-            onPressed: onPressed,
-          ),
-        ),
+        body:
+            SafeArea(top: false, bottom: false, child: ServerForm(scaffoldKey)),
       ),
     );
-  }
-
-  void onPressed() {
-    print("Opening controller");
-    Navigator.of(context).pushNamed('/controller');
   }
 }

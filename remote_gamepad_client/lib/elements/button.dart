@@ -10,8 +10,6 @@ class GamepadButton extends StatelessWidget {
   final double opacity;
   final Text text;
   final ButtonCallback buttonCallback;
-  static int _numButtons = 0;
-  int buttonID;
 
   GamepadButton({
     Key key,
@@ -20,14 +18,10 @@ class GamepadButton extends StatelessWidget {
     this.opacity,
     this.buttonCallback,
     this.text,
-  }) {
-    this.buttonID = _numButtons;
-    _numButtons++;
-  }
+  });
 
   @override
   Widget build(BuildContext context) {
-    print("Building button with ID $buttonID and name ${text.data}");
     Widget button = InkWell(child: Circle.buttonCircle(diameter, color, text));
     return GestureDetector(
       child:

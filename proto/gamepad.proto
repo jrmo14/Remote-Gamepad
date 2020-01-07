@@ -1,0 +1,45 @@
+syntax  = "proto3";
+
+option java_multiple_files = true;
+option java_package = "com.jrmo.remote_gamepad";
+option java_outer_classname = "RemoteGamepadProto";
+
+package remote_gamepad;
+
+service Gamepad{
+  rpc InitializeGamepad(Empty) returns (ClientID) {}
+
+  rpc SendGamepadState(GamepadState) returns (ClientID) {}
+
+  rpc DestroyGamepad(ClientID) returns (Empty) {}
+}
+
+
+message ClientID {
+  string client_id = 1;
+}
+
+
+message JoystickState{
+  double x = 1;
+  double y = 2;
+}
+
+
+message ButtonState{
+  bool A = 1;
+  bool B = 2;
+  bool X = 3;
+  bool Y = 4;
+}
+
+message GamepadState{
+  JoystickState leftStick = 1;
+  JoystickState rightStick = 2;
+  ButtonState buttons = 3;
+  ClientID client_id = 4;
+}
+
+message Empty {
+
+}
