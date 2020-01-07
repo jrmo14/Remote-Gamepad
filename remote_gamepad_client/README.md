@@ -1,16 +1,8 @@
-# remote_joystick
-
-A new Flutter application.
-
 ## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://flutter.dev/docs/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://flutter.dev/docs/cookbook)
-
-For help getting started with Flutter, view our
-[online documentation](https://flutter.dev/docs), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+1. [Install](https://flutter.dev/docs/get-started/install) flutter for your platform
+2. Plug in phone
+3. Run `flutter run --release` in a terminal to deploy app to phone
+4. Follow the instructions `remote_gamepad_server` to start the server
+5. Ensure phone and server are one same network
+6. Enter server IP address and port to app to connect
+7. Game on!
